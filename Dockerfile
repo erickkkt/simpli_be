@@ -10,23 +10,28 @@ ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 
 COPY ["Services/Simpli.SearchPortal.Api/Simpli.SearchPortal.Api.csproj", "Services/Simpli.SearchPortal.Api/"]
-COPY ["Infrastructure/Simpli.SearchPortal.Application/Simpli.SearchPortal.Application.csproj", "Infrastructure/Simpli.SearchPortal.Application/"]
-COPY ["Infrastructure/Simpli.SearchPortal.Domain/Simpli.SearchPortal.Domain.csproj", "Infrastructure/Simpli.SearchPortal.Domain/"]
-COPY ["Infrastructure/Simpli.SearchPortal.ChromeScraper/Simpli.SearchPortal.ChromeScraper.csproj", "Infrastructure/Simpli.SearchPortal.ChromeScraper/"]
 
 RUN dotnet restore "./Services/Simpli.SearchPortal.Api/Simpli.SearchPortal.Api.csproj"
 
 COPY . .
 WORKDIR "/src/Services/Simpli.SearchPortal.Api"
+RUN pwd
+RUN ls
 RUN dotnet build "./Simpli.SearchPortal.Api.csproj" -c $BUILD_CONFIGURATION -o /app/build
+
+RUN ls -l /app/build
 
 # This stage is used to publish the service project to be copied to the final stage
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
+run pwd
+run ls
 RUN dotnet publish "./Simpli.SearchPortal.Api.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
+RUN ls -l /app/publish
 # This stage is used in production or when running from VS in regular mode (Default when not using the Debug configuration)
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+RUN ls -l
 ENTRYPOINT ["dotnet", "Simpli.SearchPortal.Api.dll"]
