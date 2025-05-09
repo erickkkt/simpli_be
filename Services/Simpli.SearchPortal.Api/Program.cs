@@ -65,14 +65,10 @@ void Configure(ConfigurationManager configuration, IWebHostEnvironment environme
     app.AddSecurityHeaders();
     app.UseHsts();
 
-    if (!environment.IsProduction())
+    if (environment.IsDevelopment())
     {
         app.UseSwagger();
         app.UseSwaggerUI();
-    }
-
-    if (environment.IsDevelopment())
-    {
         app.UseDeveloperExceptionPage();
     }
 

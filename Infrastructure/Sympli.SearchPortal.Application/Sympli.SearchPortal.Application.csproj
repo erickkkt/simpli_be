@@ -12,7 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Sympli.SearchPortal.ChromeScraper\Sympli.SearchPortal.ChromeScraper.csproj" />
     <ProjectReference Include="..\Sympli.SearchPortal.Domain\Sympli.SearchPortal.Domain.csproj" />
   </ItemGroup>
 
