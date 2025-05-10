@@ -82,8 +82,6 @@ void Configure(ConfigurationManager configuration, IWebHostEnvironment environme
         app.UseDeveloperExceptionPage();
     }
 
-    app.UseHttpsRedirection();
-
     app.UseCors("CorsPolicy");
 
     app.UseMiddleware<ExceptionHandlingMiddleware>();
