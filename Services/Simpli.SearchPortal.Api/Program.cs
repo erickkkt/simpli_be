@@ -20,7 +20,17 @@ var app = builder.Build();
 
 Configure(builder.Configuration, builder.Environment);
 
-app.Run();
+try
+{
+    app.Run();
+}
+catch (Exception ex)
+{
+    var logger = app.Services.GetRequiredService<ILogger<Program>>();
+    logger.LogCritical(ex, "Unhandled exception occurred while running the application.");
+
+    throw;
+}
 
 void ConfigureServices(ConfigurationManager configuration, IWebHostEnvironment environment)
 {
