@@ -3,8 +3,21 @@ A sophisticated search ranking service designed to provide optimized and efficie
 
 # 🚀 Features
 - Highly optimized search ranking algorithms.
-- Layered architecture with factory pattern for maintainable and scalable code. I know CQRS architecture, but I think Layered architecture is suiable for this requirement due to it's simpler and eary for implementation and mainternance.
+- Layered architecture with factory pattern for maintainable and scalable code. we can implement with CQRS, I chose Layered Architecture for this project due to its simplicity and ease of implementation and maintenance..
+- Support search on 2 engines: Bing, Google.
+- Scraping Google Search results directly with HttpClient is not recommended and generally unreliable due to the following reasons: [Google Cause SEO Outages](https://www.searchenginejournal.com/google-causes-global-seo-tool-outages/537604/)
+  <ul>
+    <li>Google uses bot detection techniques like CAPTCHA, IP rate limiting, and browser fingerprinting. HttpClient is easily flagged as a bot.</li>
+    <li>Google constantly changes its HTML, so your scraper may break frequently.</li>
+  </ul>
+  
+  *** ⚠️ For this project, I used HttpClient to demonstrate technical skills. For production, I recommend using the Google Search API or tools like Selenium WebDriver. I’ve also implemented a separate ChromeScraper portal using Selenium WebDriver (not referenced in this project).***
+
+
+- Using IHttpClientFactory with Named Client. promoting better resource management and testability [Benefit of using IHttpClientFactory](https://learn.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests#benefits-of-using-ihttpclientfactory)
 - Exception Middleware for centralized error handling.
+- Unit tests written using xUnit and Moq for mocking dependencies and services.
+- Using the options pattern uses classes to provide strongly typed access to groups of related settings.
 - Built-in support for Docker and Azure-based deployments.
 - Integrated CI/CD pipeline for seamless updates and deployments.
 - Real-time monitoring with Azure Application Insights.
@@ -48,7 +61,7 @@ Business Logic Layer: Encapsulates the core logic of the application.
 Data Access Layer: Interfaces with the database.
 Additionally, the Factory Pattern is incorporated to support flexible object creation and dependency injection. This approach ensures maintainability and scalability.
 - Diagram:
-PNG
+[PNG](https://gitdiagram.com/erickkkt/simpli_be/)
 
 # 🚀 CI/CD with Azure Pipelines
 This project uses Azure Pipelines for continuous integration and deployment:
